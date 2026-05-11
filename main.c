@@ -8,6 +8,7 @@
 int main(void)
 {
 	char *line = NULL;
+	char *command;
 	size_t len = 0;
 
 	while (1)
@@ -22,14 +23,21 @@ int main(void)
 
 		line[strcspn(line, "\n")] = '\0';
 
-		if (strcmp(line, "exit") == 0)
+		command = strtok(line, " ");
+
+		if (command == NULL)
+			continue;
+
+		if (strcmp(command, "exit") == 0)
 		{
 			free(line);
 			exit(0);
 		}
 
-		execute_command(line);
+		execute_command(command);
 	}
+
+	free(line);
 
 	return (0);
 }
