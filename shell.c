@@ -16,15 +16,24 @@ void display_prompt(void)
 void execute_command(char *command)
 {
 	pid_t pid;
-	char *args[] = {command, NULL};
+	char *args[2];
+
+	args[0] = command;
+	args[1] = NULL;
 
 	pid = fork();
 
+	if (pid == -1)
+	{
+		perror("Error");
+		return;
+	}
+
 	if (pid == 0)
 	{
-		execve(command, args, NULL);
+		execve(command, args, environ);
 		perror("./hsh");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
