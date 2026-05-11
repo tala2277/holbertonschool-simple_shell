@@ -8,8 +8,10 @@
 int main(void)
 {
 	char *line = NULL;
-	char *command;
+	char *token;
+	char *args[64];
 	size_t len = 0;
+	int i;
 
 	while (1)
 	{
@@ -23,21 +25,27 @@ int main(void)
 
 		line[strcspn(line, "\n")] = '\0';
 
-		command = strtok(line, " ");
+		i = 0;
+		token = strtok(line, " \t");
+		while (token != NULL && i < 63)
+		{
+			args[i] = token;
+			i++;
+			token = strtok(NULL, " \t");
+		}
+		args[i] = NULL;
 
-		if (command == NULL)
+		if (args[0] == NULL)
 			continue;
 
-		if (strcmp(command, "exit") == 0)
+		if (strcmp(args[0], "exit") == 0)
 		{
 			free(line);
 			exit(0);
 		}
 
-		execute_command(command);
+		execute_command(args);
 	}
-
-	free(line);
 
 	return (0);
 }

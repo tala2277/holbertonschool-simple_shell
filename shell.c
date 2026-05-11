@@ -11,15 +11,11 @@ void display_prompt(void)
 
 /**
  * execute_command - executes command
- * @command: command entered by user
+ * @args: command and arguments
  */
-void execute_command(char *command)
+void execute_command(char **args)
 {
 	pid_t pid;
-	char *args[2];
-
-	args[0] = command;
-	args[1] = NULL;
 
 	pid = fork();
 
@@ -31,12 +27,10 @@ void execute_command(char *command)
 
 	if (pid == 0)
 	{
-		execve(command, args, environ);
+		execve(args[0], args, environ);
 		perror("./hsh");
 		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		wait(NULL);
-	}
+
+	wait(NULL);
 }

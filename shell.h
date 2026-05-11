@@ -10,6 +10,6 @@
 extern char **environ;
 
 void display_prompt(void);
-void execute_command(char *command);
+void execute_command(char **args);
 
 #endif
