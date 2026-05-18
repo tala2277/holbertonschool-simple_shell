@@ -12,7 +12,7 @@
 extern char **environ;
 
 void display_prompt(void);
-void execute_command(char **args, char *prog_name);
+int execute_command(char **args, char *prog_name);
 char *_getenv(const char *name);
 char *get_location(char *cmd);
 void tokenize_input(char *line, char **args);

@@ -1,10 +1,5 @@
 #include "shell.h"
 
-/**
- * tokenize_input - splits the input line into tokens
- * @line: the string to tokenize
- * @args: the array to store the tokens
- */
 void tokenize_input(char *line, char **args)
 {
 	char *token;
@@ -20,18 +15,12 @@ void tokenize_input(char *line, char **args)
 	args[i] = NULL;
 }
 
-/**
- * main - simple shell main function
- * @argc: argument count
- * @argv: argument vector
- *
- * Return: Always 0
- */
 int main(int argc, char **argv)
 {
 	char *line = NULL;
 	char *args[64];
 	size_t len = 0;
+	int status = 0;
 
 	(void)argc;
 
@@ -41,7 +30,7 @@ int main(int argc, char **argv)
 		if (getline(&line, &len, stdin) == -1)
 		{
 			free(line);
-			exit(0);
+			exit(status);
 		}
 		line[strcspn(line, "\n")] = '\0';
 		tokenize_input(line, args);
@@ -51,9 +40,9 @@ int main(int argc, char **argv)
 		if (strcmp(args[0], "exit") == 0)
 		{
 			free(line);
-			exit(0);
+			exit(status);
 		}
-		execute_command(args, argv[0]);
+		status = execute_command(args, argv[0]);
 	}
-	return (0);
+	return (status);
 }
