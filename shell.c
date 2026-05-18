@@ -10,10 +10,11 @@ void display_prompt(void)
 }
 
 /**
- * execute_command - executes command
+ * execute_command - executes command safely
  * @args: command and arguments
+ * @prog_name: name of the shell program
  */
-void execute_command(char **args)
+void execute_command(char **args, char *prog_name)
 {
 	pid_t pid;
 	char *actual_cmd;
@@ -24,7 +25,7 @@ void execute_command(char **args)
 	actual_cmd = get_location(args[0]);
 	if (actual_cmd == NULL)
 	{
-		fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
+		fprintf(stderr, "%s: No such file or directory\n", prog_name);
 		return;
 	}
 
@@ -38,7 +39,7 @@ void execute_command(char **args)
 	if (pid == 0)
 	{
 		execve(actual_cmd, args, environ);
-		perror("./hsh");
+		perror(prog_name);
 		free(actual_cmd);
 		exit(EXIT_FAILURE);
 	}
