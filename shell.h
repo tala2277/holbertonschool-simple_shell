@@ -11,5 +11,8 @@ extern char **environ;
 
 void display_prompt(void);
 void execute_command(char **args);
+char *_getenv(const char *name);
+char *get_location(char *command);
+
 
 #endif
