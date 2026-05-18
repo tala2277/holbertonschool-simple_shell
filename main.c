@@ -21,6 +21,7 @@ int main(int argc, char **argv)
 	char *args[64];
 	size_t len = 0;
 	int status = 0;
+	int e;
 
 	(void)argc;
 
@@ -41,6 +42,16 @@ int main(int argc, char **argv)
 		{
 			free(line);
 			exit(status);
+		}
+		if (strcmp(args[0], "env") == 0)
+		{
+			e = 0;
+			while (environ[e] != NULL)
+			{
+				printf("%s\n", environ[e]);
+				e++;
+			}
+			continue;
 		}
 		status = execute_command(args, argv[0]);
 	}
