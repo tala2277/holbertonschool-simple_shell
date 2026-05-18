@@ -1,11 +1,21 @@
 #include "shell.h"
 
+/**
+ * display_prompt - displays shell prompt
+ */
 void display_prompt(void)
 {
 	if (isatty(STDIN_FILENO))
 		printf("($) ");
 }
 
+/**
+ * execute_command - executes command safely
+ * @args: command and arguments
+ * @prog_name: name of the shell program
+ *
+ * Return: status code
+ */
 int execute_command(char **args, char *prog_name)
 {
 	pid_t pid;

@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+ * tokenize_input - splits the input line into tokens
+ * @line: the string to tokenize
+ * @args: the array to store the tokens
+ */
 void tokenize_input(char *line, char **args)
 {
 	char *token;
@@ -15,6 +20,13 @@ void tokenize_input(char *line, char **args)
 	args[i] = NULL;
 }
 
+/**
+ * main - simple shell main function
+ * @argc: argument count
+ * @argv: argument vector
+ *
+ * Return: Always 0
+ */
 int main(int argc, char **argv)
 {
 	char *line = NULL;
