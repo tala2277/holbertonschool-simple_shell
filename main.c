@@ -22,14 +22,18 @@ void tokenize_input(char *line, char **args)
 
 /**
  * main - simple shell main function
+ * @argc: argument count
+ * @argv: argument vector
  *
  * Return: Always 0
  */
-int main(void)
+int main(int argc, char **argv)
 {
 	char *line = NULL;
 	char *args[64];
 	size_t len = 0;
+
+	(void)argc;
 
 	while (1)
 	{
@@ -40,19 +44,16 @@ int main(void)
 			exit(0);
 		}
 		line[strcspn(line, "\n")] = '\0';
-
 		tokenize_input(line, args);
 
 		if (args[0] == NULL)
 			continue;
-
 		if (strcmp(args[0], "exit") == 0)
 		{
 			free(line);
 			exit(0);
 		}
-
-		execute_command(args);
+		execute_command(args, argv[0]);
 	}
 	return (0);
 }
